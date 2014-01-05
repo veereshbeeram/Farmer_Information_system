@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="Connectivity_Property_Dialog_Root">
+		<item value="588" key="Dialog_Size_Height"/>
+		<item value="635" key="Dialog_Size_Width"/>
+	</section>
+	<section name="Drivers Edit Driver_Dialog_Root">
+		<item value="818" key="Dialog_Size_Height"/>
+		<item value="523" key="Dialog_Size_Width"/>
+	</section>
+	<section name="Drivers New Driver_Dialog_Root">
+		<item value="548" key="Dialog_Size_Height"/>
+		<item value="308" key="Dialog_Size_Width"/>
+		<item value="true" key="Edit Immediately"/>
+	</section>
+	<section name="Drivers Definitions Driver_Dialog_Root">
+		<item value="525" key="Dialog_Size_Height"/>
+		<item value="322" key="Dialog_Size_Width"/>
+	</section>
+</section>

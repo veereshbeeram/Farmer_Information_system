@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Soil">
+	<typeAlias alias="SoilBean" type="com.beans.SoilBean"/>
+	
+	<insert id="addSoil" parameterClass="string">
+    	insert into soil(name) values(#value#) 
+  	</insert>
+  	<delete id="deleteSoil" parameterClass="string">
+  		delete from soil where name like #value#
+  	</delete>
+  	<select id="getAllSoils" resultClass="SoilBean">
+  		select * from soil
+  	</select>
+ </sqlMap>
+

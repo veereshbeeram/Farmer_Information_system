@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+"-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="loc.state">
+		<field-validator type="requiredstring" short-circuit="true">
+			<message>Please enter state name!</message>
+		</field-validator>
+	</field>
+	<field name="loc.district">
+		<field-validator type="requiredstring">
+			<message>Please enter district name!</message>
+		</field-validator>
+	</field>
+	<field name="loc.marketName">
+		<field-validator type="requiredstring">
+			<message>Please enter market name!</message>
+		</field-validator>
+	</field>
+	<field name="loc.avgTemp">
+		<field-validator type="required">
+			<message>Please enter temperature info!</message>
+		</field-validator>
+	</field>
+	<field name="loc.rain">
+		<field-validator type="required">
+			<message>Please enter rainfall info!</message>
+		</field-validator>
+	</field>
+</validators>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Location">
+	<typeAlias alias="LocBean" type="com.beans.LocBean"/>
+	
+	<select id="getAllStateNames" resultClass="string">
+  		select distinct(state) from location 
+  	</select>
+  	
+  	<insert id="addLoc" parameterClass="LocBean">
+  		insert into location(district,state,avg_temp,rainfall,marketName) values(#district#,#state#,#avgTemp#,#rain#,#marketName#)
+  	</insert>
+  	
+  	<select id="getCropIDfromName" parameterClass="string" resultClass="int">
+  		select Cropid from crop where name=#value#
+  	</select>
+  	
+  	<insert id="addFavCrop" parameterClass="map">
+  		insert into crop_location values(#cid#,#lid#)
+  	</insert>
+  	
+  	<delete id="deleteLoc" parameterClass="string">
+  		delete from location where district=#value#
+  	</delete>
+  	<update id="updateLoc" parameterClass="LocBean">
+  		update location set state=#state#,rainfall=#rain#,avg_temp=#avgTemp#,marketName=#marketName# where district like #district#
+  	</update>
+  	<resultMap id="LocBeanMap" class="LocBean">
+  		<result property="rain" column="rainfall"/>
+  		<result property="avgTemp" column="avg_temp"/>
+  		<result property="state" column="state"/>
+  		<result property="district" column="district"/>
+  		<result property="marketName" column="marketName"/>
+  	</resultMap>
+  	<select id="getAllLocs" resultMap="LocBeanMap">
+  		select * from location 
+  	</select>
+  	<select id="getLocDetails" parameterClass="string" resultMap="LocBeanMap">
+  		select * from location where district like #value#
+  	</select>
+  	<select id="getLocID" parameterClass="string" resultClass="int">
+  		select locid from location where district=#value#
+  	</select>
+  	
+  	<select id="getFavCrops" parameterClass="int" resultClass="string">
+  		select name from crop where cropid in (select cropid from crop_location where locid=#value#)
+  	</select>
+  	
+  	<delete id="deleteOldFavCrop" parameterClass="map">
+  		delete from crop_location where cropid=#cid# and locid=#lid#
+  	</delete>
+  	
+  	<select id="getUnfavCrops" parameterClass="int" resultClass="string">
+  		select name from crop where cropid not in(select cropid from crop_location where locid=#value#)
+  	</select>
+</sqlMap>
+

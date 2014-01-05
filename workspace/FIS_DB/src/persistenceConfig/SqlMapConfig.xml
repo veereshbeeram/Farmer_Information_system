@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+  <properties resource="properties/database.properties"/>
+
+  <transactionManager type="JDBC" commitRequired="false">
+    <dataSource type="DBCP">
+      <property value="${driver}" name="JDBC.Driver"/>
+      <property value="${url}" name="JDBC.ConnectionURL"/>
+      <property value="${username}" name="JDBC.Username"/>
+      <property value="${password}" name="JDBC.Password"/>
+	  <property name="Pool.MaximumActiveConnections" value="20"/>
+	  <property name="Pool.MaximumIdleConnections" value="5"/>
+    </dataSource>
+  </transactionManager>
+
+  <sqlMap resource="persistenceConfig/Login.xml"/>
+  <sqlMap resource="persistenceConfig/Crop.xml"/>
+  <sqlMap resource="persistenceConfig/Location.xml"/>
+  <sqlMap resource="persistenceConfig/Register.xml"/>
+  <sqlMap resource="persistenceConfig/Fertilizer.xml"/>
+  <sqlMap resource="persistenceConfig/Query.xml"/>
+  <sqlMap resource="persistenceConfig/Loan.xml"/>
+  <sqlMap resource="persistenceConfig/Training.xml"/>
+  <sqlMap resource="persistenceConfig/Market.xml"/>
+  <sqlMap resource="persistenceConfig/Poll.xml"/>
+  <sqlMap resource="persistenceConfig/Ins.xml"/>
+  <sqlMap resource="persistenceConfig/Tool.xml"/>
+  <sqlMap resource="persistenceConfig/Soil.xml"/>	
+</sqlMapConfig>

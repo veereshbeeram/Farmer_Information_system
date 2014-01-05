@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Training">
+	<typeAlias alias="TrainingBean" type="com.beans.TrainingBean"/>
+	
+	<insert id="addTrainingDet" parameterClass="TrainingBean">
+		insert into training(name,description,time,address,maxCount,duration) values(#name#,#description#,#time#,#address#,#maxCount#,#duration#)
+	</insert>
+	
+	<select id="getAllTrainingDet" resultClass="TrainingBean">
+		select * from training 
+	</select>
+	
+	<select id="getTrainingDetFromTid" resultClass="TrainingBean" parameterClass="int">
+		select * from training where tid=#value#
+	</select>
+	
+	<update id="updateTrainingDet" parameterClass="TrainingBean">
+		update training set name=#name#,description=#description#,time=#time#,
+		address=#address#,maxCount=#maxCount#,duration=#duration# where Tid=#tid#
+	</update>
+	
+	<select id="getUserDetailsFromFid" parameterClass="int" resultClass="TrainingBean">
+		select name as uname,occupation as occ from tgmcuser where Fid=#value# 
+	</select>
+	
+	<insert id="registerForTraining" parameterClass="TrainingBean">
+		insert into training_reg(Tid,name,occupation,contact) values(#tid#,#uname#,#occ#,#contact#)
+	</insert>
+	
+	<insert id="registerUserForTraining" parameterClass="TrainingBean">
+		insert into training_user(Tid,Fid) values(#tid#,#fid#)
+	</insert>
+	
+	<select id="getTidListFromFid" parameterClass="int" resultClass="int">
+		select tid from training_user where fid=#value#
+	</select>
+	
+	<select id="getOtherTrainings" parameterClass="int" resultClass="int">
+		select tid from training where tid not in(select tid from training_user where fid=#value#) and maxCount>regCount 
+	</select>
+	
+	<update id="incRegCount" parameterClass="int">
+		update training set regCount=regCount+1 where tid=#value#
+	</update>
+	
+	<delete id="deleteTraining" parameterClass="int">
+		delete from training where tid=#value#
+	</delete>
+</sqlMap>
+

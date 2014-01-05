@@ -1,0 +1,147 @@
+@charset "utf-8";
+body  {
+	font: 100% Verdana, Arial, Helvetica, sans-serif;
+	margin: 0; 
+	padding: 0;
+	text-align: center; 
+	color: #000000;
+}
+
+.position
+	{
+	top:150px;
+	right:30px;
+	text-align: right;
+}
+.message{
+right: 0;
+bottom: 0;
+left: 0;
+width:auto;
+margin: 0;
+color: #33CC33;
+border-color:#009900;
+border-style:solid ;
+border-width:0px;
+border-collapse: collapse;
+font-weight: bold;
+text-align: left;
+background-color:#DDFFDD;
+}
+.twoColFixRtHdr #container {
+	width: 820px;  
+	
+	margin: 0 auto; 
+	text-align: left;
+	height: 600px;
+	} 
+.twoColFixRtHdr #header {
+	padding: 0 10px 0 20px;  
+	height: 70px;
+} 
+.twoColFixRtHdr #header h1 {
+	margin: 0; 
+	padding: 10px 0; 
+}
+.twoColFixRtHdr #sidebar {
+	background-color: #CEF5A7;
+	float: right; /* since this element is floated, a width must be given */
+	width: 200px; /* the background color will be displayed for the length of the content in the column, but no further */
+	padding: 15px 10px;
+	font-size: 80%;
+	
+	
+}
+
+.twoColFixRtHdr #mainContent {
+	padding: 0 20px; /* remember that padding is the space inside the div box and margin is the space outside the div box */
+	background-color: #FFFFFF;
+	height: 500px;
+	width: 800px;
+}
+.twoColFixRtHdr #mainContent h3 {
+	font: italic;
+	font-family: serif;
+	}
+.twoColFixRtHdr #footer {
+	padding: 10px 10px 0 20px;
+	height: 30px;
+	text-align : right;
+} 
+.twoColFixRtHdr #footer p {
+	margin: 0; /* zeroing the margins of the first element in the footer will avoid the possibility of margin collapse - a space between divs */
+	padding: 10px 0; /* padding on this element will create space, just as the the margin would have, without the margin collapse issue */
+}
+.fltrt { /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class should be placed on a div or break element and should be the final element before the close of a container that should fully contain a float */
+	clear:both;
+    height:0;
+    font-size: 1px;
+    line-height: 0px;
+}
+.table
+{
+font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+width:600px;
+border-collapse:collapse;
+color:#000000;
+background-color:#EAF2D3;
+}
+table td 
+{
+font-size:1em;
+border:1px solid #98bf21;
+padding:3px 7px 2px 7px;
+color:#000000;
+background-color:#EAF2D3;
+}
+table th
+{
+font-size:1.1em;
+border:1px solid #006600;
+padding:3px 7px 2px 7px;
+background-color:#006600;
+font-weight:bold;
+color:#FFFFFF;
+text-align:left;
+}
+fieldset
+{
+border:#9966CC; 
+border-collapse:collapse; 
+border:solid;
+}
+legend
+{
+font:Arial, Helvetica, sans-serif; 
+font-size:22px;
+color:#009900;
+}
+.twoColFixRtHdr a{
+	color : black;
+	font: 100% Verdana, Arial, Helvetica, sans-serif;
+	}
+
+.twoColFixRtHdr a:hover{
+	color : red;
+	}
+
+
+</style><!--[if IE 5]>
+<style type="text/css"> 
+/* place css box model fixes for IE 5* in this conditional comment */
+.twoColFixRtHdr #sidebar { width: 220px; }
+</style>
+<![endif]--><!--[if IE]>
+<style type="text/css"> 
+/* place css fixes for all versions of IE in this conditional comment */
+.twoColFixRtHdr #sidebar { padding-top: 30px; }
+.twoColFixRtHdr #mainContent { zoom: 1; }
+/* the above proprietary zoom property gives IE the hasLayout it needs to avoid several bugs */

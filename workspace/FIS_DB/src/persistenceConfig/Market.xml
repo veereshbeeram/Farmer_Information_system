@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Location">
+	<typeAlias alias="MarketBean" type="com.beans.MarketBean"/>
+	
+	<select id="getAllMarketNames" resultClass="string">
+		select marketName from location 
+	</select>
+	
+	<insert id="addCropPrice" parameterClass="MarketBean">
+  		insert into market_crop(Lid,Cropid,oldPrice,newPrice) values(#locId#,#cropId#,#oldPrice#,#newPrice#)
+  	</insert>
+  	
+  	<update id="updateCropPrice" parameterClass="MarketBean">
+  		update market_crop set oldPrice=newPrice,newPrice=#newPrice# where Cropid=#cropId# and Lid=#locId# 
+  	</update>
+  	
+  	<select id="getCropId" parameterClass="string" resultClass="int">
+		select Cropid from crop where name=#value#  	
+  	</select>
+
+	<select id="getLocIdFromMarketName" parameterClass="string" resultClass="int">
+  		select Locid from location where marketName=#value#
+  	</select>
+  	  	
+  	<select id="getPriceOfCrop" parameterClass="MarketBean" resultClass="float">
+  		select newPrice from market_crop where Lid=#locId# and Cropid=#cropId#
+  	</select>
+  	
+  	<select id="getAllCropPricesFromMarket" parameterClass="int" resultClass="MarketBean">
+  		select m.CropId,oldPrice,newPrice,name as cropName from market_crop m,crop c where m.Lid=#value# and m.Cropid=c.Cropid 
+  	</select>	<!-- not being used -->
+  	
+  	<select id="getMarketPricesOfCrop" parameterClass="int" resultClass="MarketBean">
+  		select marketName,newPrice,oldPrice,m.Lid as locID from market_crop m,location l where m.Cropid=#value# and m.Lid=l.Locid
+  	</select>
+  	
+  	<select id="getCropPricesOfMarket" parameterClass="int" resultClass="MarketBean">
+  		select m.CropId as cropID,newPrice,oldPrice,name as cropName from market_crop m,crop c where m.Lid=#value# and m.Cropid=c.Cropid
+  	</select>
+</sqlMap>
+

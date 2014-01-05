@@ -1,0 +1,4 @@
+#Mon Jan 18 19:29:05 IST 2010
+module-start-timeout=300000
+runtimes=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<runtimes>\r\n  <runtime id\="IBM WASCE v2.0" location\="C\:/Program Files/IBM/WebSphere/AppServerCommunityEdition" name\="IBM WASCE v2.0" runtime-type-id\="com.ibm.wasce.runtime.20" timestamp\="0" vm-install-id\="1263814592261" vm-install-type-id\="org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType">\r\n    <map key\="geronimo_server_instance_properties" serverRootDirectory\="C\:\\Program Files\\IBM\\WebSphere\\AppServerCommunityEdition"/>\r\n  </runtime>\r\n  <runtime id\="Apache Tomcat v6.0" location\="C\:/Program Files/Apache Software Foundation/Tomcat 6.0" name\="Apache Tomcat v6.0" runtime-type-id\="org.eclipse.jst.server.tomcat.runtime.60" timestamp\="0"/>\r\n</runtimes>\r\n
+eclipse.preferences.version=1

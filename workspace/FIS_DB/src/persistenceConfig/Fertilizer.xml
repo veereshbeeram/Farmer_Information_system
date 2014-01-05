@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Fertilizer">
+	<typeAlias alias="FertBean" type="com.beans.FertBean"/>
+	
+	<insert id="addFert" parameterClass="FertBean">
+    	insert into fertilizer(price,distributor,description) values(#price#,#distributor#,#description#) 
+  	</insert>
+  	<update id="updateFert" parameterClass="FertBean">
+  		update fertilizer set price=#price#,distributor=#distributor# where description like #description#
+	</update>
+  	<delete id="deleteFert" parameterClass="FertBean">
+  		delete from fertilizer where description like #description#
+  	</delete>
+  	<select id="getAllFerts" resultClass="FertBean">
+  		select * from fertilizer
+  	</select>
+  	<select id="getAllFertNames" resultClass="string">
+  		select description from fertilizer
+  	</select>
+  	<select id="getFertDetails" parameterClass="string" resultClass="FertBean">
+  		select * from fertilizer where description=#value#
+  	</select>
+ </sqlMap>
+

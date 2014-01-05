@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Login">
+	<typeAlias alias="LoginBean" type="com.beans.LoginBean"/>
+	<select id="getFid" parameterClass="LoginBean" resultClass="int">
+    	select Fid from user where uid=#uid# and pwd=#pwd# 
+  	</select>
+  	
+  	<select id="getOcc" parameterClass="int" resultClass="string">
+    	select occupation from user where Fid=#value#
+  	</select>
+</sqlMap>
+

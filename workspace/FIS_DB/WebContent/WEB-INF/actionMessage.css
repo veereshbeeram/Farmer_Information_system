@@ -1,0 +1,16 @@
+div.mymessage
+{
+right: 0;
+bottom: 0;
+left: 0;
+width:300px;
+margin: auto;
+color: #33CC33;
+border-color:#009900;
+border-style:solid ;
+border-width:1px;
+border-collapse: collapse;
+font-weight: bold;
+text-align: center;
+background-color:#DDFFDD;
+}

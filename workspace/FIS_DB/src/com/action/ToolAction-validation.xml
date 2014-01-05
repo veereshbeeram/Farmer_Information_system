@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+"-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="name">
+		<field-validator type="requiredstring" short-circuit="true">
+			<message>Please enter tool/solution name!</message>
+		</field-validator>
+	</field>
+	<field name="manufacturer">
+		<field-validator type="requiredstring">
+			<message>Please enter the  manufacturer name!</message>
+		</field-validator>
+	</field>
+	<field name="upload">
+		<field-validator type="required">
+			<message>Please upload the required file!</message>
+		</field-validator>
+	</field>
+</validators>

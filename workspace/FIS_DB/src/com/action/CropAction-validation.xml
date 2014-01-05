@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+"-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="crop.name">
+		<field-validator type="requiredstring" short-circuit="true">
+			<message>Please enter crop name!</message>
+		</field-validator>
+	</field>
+	<field name="crop.type">
+		<field-validator type="requiredstring">
+			<message>Please enter crop type!</message>
+		</field-validator>
+	</field>
+	<field name="crop.season">
+		<field-validator type="requiredstring">
+			<message>Please enter soil information!</message>
+		</field-validator>
+	</field>
+</validators>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+"-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="ins.name">
+		<field-validator type="requiredstring" short-circuit="true">
+			<message>Please enter insurance name!</message>
+		</field-validator>
+	</field>
+	<field name="ins.interest">
+		<field-validator type="required">
+			<message>Please enter the interest!</message>
+		</field-validator>
+	</field>
+	<field name="ins.premium">
+		<field-validator type="required">
+			<message>Please enter the premium value!</message>
+		</field-validator>
+	</field>
+	<field name="ins.type">
+		<field-validator type="requiredstring">
+			<message>Please enter insurance type!</message>
+		</field-validator>
+	</field>
+	<field name="ins.term">
+		<field-validator type="required">
+			<message>Please enter term value!</message>
+		</field-validator>
+	</field>
+</validators>

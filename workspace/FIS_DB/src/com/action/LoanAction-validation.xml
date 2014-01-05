@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+"-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="loan.name">
+		<field-validator type="requiredstring" short-circuit="true">
+			<message>Please enter loan name!</message>
+		</field-validator>
+	</field>
+	<field name="loan.amount">
+		<field-validator type="required">
+			<message>Please enter the amount!</message>
+		</field-validator>
+	</field>
+	<field name="loan.income">
+		<field-validator type="required">
+			<message>Please enter the income!</message>
+		</field-validator>
+	</field>
+	<field name="loan.term">
+		<field-validator type="required">
+			<message>Please enter the term!</message>
+		</field-validator>
+	</field>
+	<field name="loan.interest">
+		<field-validator type="required">
+			<message>Please enter the interest!</message>
+		</field-validator>
+	</field>
+</validators>

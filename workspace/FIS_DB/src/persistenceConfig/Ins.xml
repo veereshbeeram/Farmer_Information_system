@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Ins">
+	<typeAlias alias="InsBean" type="com.beans.InsBean"/>
+	
+	<insert id="addIns" parameterClass="InsBean">
+    	insert into insurance(premium,term,type,interest,name) values(#premium#,#term#,#type#,#interest#,#name#) 
+  	</insert>
+  	<update id="updateIns" parameterClass="InsBean">
+  		update insurance set type=#type#,term=#term#,premium=#premium#,interest=#interest#,name=#name# where InsID=#insID#
+	</update>
+  	<delete id="deleteIns" parameterClass="int">
+  		delete from insurance where Insid=#value#
+  	</delete>
+  	<select id="getAllInss" resultClass="InsBean">
+  		select * from insurance
+  	</select>
+  	<select id="getAllInsNames" resultClass="string">
+  		select name from insurance
+  	</select>
+  	<select id="getInsDetails" parameterClass="int" resultClass="InsBean">
+  		select * from insurance where Insid=#value#
+  	</select>
+  	<select id="getAllTypes" resultClass="string">
+  		select distinct(type) from insurance
+  	</select>
+  	<select id="getMyInss" parameterClass="int" resultClass="int">
+  		select Insid from farmer_insurance where Fid=#value#
+  	</select>
+  	<select id="getOtherInss" parameterClass="int" resultClass="int">
+  		select Insid from insurance where Insid not in(select Insid from farmer_insurance where Fid=#value#)
+  	</select>
+  	<delete id="deleteOldIns" parameterClass="map">
+  		delete from farmer_insurance where Insid=#insID# and Fid=#fid#
+  	</delete>
+  	<select id="getInsIDFromName" parameterClass="string" resultClass="int">
+  		select Insid from insurance where name=#value# 
+  	</select>
+  	<insert id="addNewIns" parameterClass="map">
+  		insert into farmer_insurance values(#fid#,#insID#)
+	</insert>
+	<update id="addInsCount" parameterClass="int">
+		update insurance set count=count+1 where Insid=#value#
+	</update>
+	<select id="getCropCount" resultClass="int">
+		select count from insurance where type like 'crop'
+	</select>
+
+ </sqlMap>
+

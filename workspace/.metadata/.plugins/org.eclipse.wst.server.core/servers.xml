@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<servers>
+  <server hostname="localhost" id="1_18_10_9_53_PM0" inPlaceSharedLib="false" name="IBM WASCE v2.0 Server at localhost" runFromWorkspace="false" runtime-id="IBM WASCE v2.0" server-type="com.ibm.wasce.server.20" server-type-id="com.ibm.wasce.server.20" timestamp="8">
+    <map RMIRegistry="1099" WebConnector="8080" adminID="system" adminPassword="manager" key="geronimo_server_instance_properties" logLevel="--long" maxPings="40" pingDelay="10000" pingInterval="5000" publishTimeout="900000"/>
+    <list key="modules"/>
+  </server>
+</servers>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Register">
+	<typeAlias alias="RegBean" type="com.beans.RegisterBean"/>
+	<typeAlias alias="DepBean" type="com.beans.DependantBean"/>
+	
+	<select id="getDistrictsInState" parameterClass="string" resultClass="string">
+		select district from location where state like #value#
+	</select>
+	
+	<select id="getLocId" parameterClass="RegBean" resultClass="int">
+		select Locid from location where state like #state# and district like #district#
+	</select>
+	
+	<insert id="storePerDetails" parameterClass="RegBean">
+		insert into user(name,age,address,income,uid,pwd,occupation,Locid) values(#name#,#age#,#address#,#income#,#uid#,#pwd#,#occupation#,#locId#) 
+	</insert> 
+
+  	<select id="getFidFromUid" parameterClass="string" resultClass="int">
+		select Fid from user where uid like #value#
+  	</select>
+  	
+  	<insert id="storeDepDetails" parameterClass="DepBean">
+  		insert into dependant(Fid,name,age,relationship) values(#fid#,#name#,#age#,#relationship#)
+  	</insert>
+  	
+  	<select id="getCropIdFromName" parameterClass="string" resultClass="int">
+  		select CropId from crop where name like #value#
+  	</select>
+  	
+  	<insert id="storeCropDetails" parameterClass="map">
+  		insert into cultivates values(#fid#,#cid#)
+  	</insert>
+  	
+  	<select id="checkUid" parameterClass="string" resultClass="string">
+  		select uid from user where uid like #value#
+  	</select>
+  	
+  	<select id="getDepDetails" parameterClass="int" resultClass="DepBean">
+  		select fid,name,name as oldName,age,relationship from dependant where fid=#fid#
+  	</select>
+  	
+  	<select id="getPerDetails" parameterClass="int" resultClass="RegBean">
+  		select * from user where Fid=#fid#
+  	</select>
+
+	<select id="getLocDetailsFromId" parameterClass="int" resultClass="java.util.HashMap">
+		select state,district from location where Locid=#locId#
+	</select>
+	
+	<update id="updateProfileUser" parameterClass="RegBean">
+		update user set name=#name#,age=#age#,address=#address#,income=#income#,pwd=#pwd#,Locid=#locId# where Fid=#fid#
+	</update>
+	
+	<update id="updateProfileDep" parameterClass="DepBean">
+		update dependant set name=#name#,age=#age#,relationship=#relationship# where Fid=#fid# and name=#oldName#
+	</update>
+	
+	<insert id="addOfficer" parameterClass="RegBean">
+		insert into user(name,uid,pwd,occupation) values(#name#,#uid#,#pwd#,'Agricultural Officer')
+	</insert>
+	
+	<delete id="deleteOff" parameterClass="string">
+		delete from user where uid like #value#
+	</delete>
+	
+	<select id="getOffUidList" resultClass="string">
+		select uid from user where occupation like 'Agricultural Officer'
+	</select>
+</sqlMap>
+

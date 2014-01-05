@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+"-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="reg.name">
+		<field-validator type="requiredstring" short-circuit="true">
+			<message>Please enter name!</message>
+		</field-validator>
+	</field>
+	<field name="reg.address">
+		<field-validator type="requiredstring">
+			<message>Please enter address !</message>
+		</field-validator>
+	</field>
+	<field name="reg.age">
+		<field-validator type="required">
+			<message>Please enter age!</message>
+		</field-validator>
+	</field>
+	<field name="reg.uid">
+		<field-validator type="requiredstring">
+			<message>Please enter userID!</message>
+		</field-validator>
+	</field>
+	<field name="reg.income">
+		<field-validator type="required">
+			<message>Please enter income value !</message>
+		</field-validator>
+	</field>
+	<field name="reg.pwd">
+		<field-validator type="requiredstring">
+			<message>Please enter password !</message>
+		</field-validator>
+	</field>
+	<field name="reg.confirmPwd">
+		<field-validator type="requiredstring">
+			<message>Please re-enter password !</message>
+		</field-validator>
+	</field>
+	<validator type="expression">
+		<param name="expression">
+			(reg.pwd).equals(reg.confirmPwd)
+		</param>
+		<message>Passwords do not match</message>
+	</validator>
+</validators>

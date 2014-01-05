@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="example" extends="json-default,jasperreports-default">
+		
+	<interceptors>
+    		<interceptor name="farmerAuth" class="com.filter.FarmerAuthInt"/>
+    		<interceptor name="officerAuth" class="com.filter.OfficerAuthInt"/>
+    		<interceptor name="adminAuth" class="com.filter.AdminAuthInt"/>
+    	
+    	<interceptor-stack name="postLoginOfficer">
+				<interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="officerAuth"/>
+		</interceptor-stack>
+		
+		<interceptor-stack name="postLoginFarmer">
+				<interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="farmerAuth"/>
+		</interceptor-stack>
+		
+		<interceptor-stack name="postLoginAdmin">
+				<interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="adminAuth"/>
+		</interceptor-stack>
+		
+		<interceptor-stack name="preLogin">
+			<interceptor-ref name="defaultStack"/>
+		</interceptor-stack>
+    </interceptors>
+    	
+    	<default-interceptor-ref name="postLoginOfficer"/>	
+    
+    	<global-results>
+            <result name="INSECURE">Other/HomePage.jsp</result>
+            <result name="Exception">Other/Error.jsp</result>
+		</global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="Exception"/>
+        </global-exception-mappings>
+        
+		<!-- Login and Logout Action -->
+		<action name="home">
+			<interceptor-ref name="preLogin"/>
+			<result>Other/HomePage.jsp</result>
+		</action>
+		<action name="verify" method="doLogin" class="com.action.LoginAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="Admin">Accounts/Admin.jsp</result>
+			<result name="Farmer">Accounts/Farmer.jsp</result>
+			<result name="Student">Accounts/Student.jsp</result>
+			<result name="Agricultural Officer">Accounts/AgriOfficer.jsp</result>
+			<result name="input">Other/HomePage.jsp</result>
+		</action>
+		<action name="offView">
+			<result>Accounts/AgriOfficer.jsp</result>
+		</action>
+		<action name="logout" method="logout" class="com.action.AccountAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Other/HomePage.jsp</result>
+		</action>
+		
+		<!-- Query Action -->
+		<action name="postQueryView" class="com.action.QueryAction" method="getOffNames">
+			<interceptor-ref name="preLogin"/>
+			<result>Query/PostQuery.jsp</result>
+		</action>
+		<action name="postQuery" class="com.action.QueryAction" method="postQuery">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Query/PostQuery.jsp</result>
+		</action>
+		<action name="myQuery" method="getQueryList" class="com.action.QueryAction">
+			<result name="*">Query/MyQueries.jsp</result>
+		</action>
+		<action name="replyToQuery">
+			<result>Query/Reply.jsp</result>
+		</action>
+		<action name="addReply" method="addReply" class="com.action.QueryAction">
+			<result name="*" type="redirect">myQuery.action</result>
+		</action>
+		<action name="allMyQueries" method="getAllMyQueries" class="com.action.QueryAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Query/AllMyQueries.jsp</result>
+		</action>
+		
+		<!-- Register Action -->
+		<action name="registerView"> 	
+			<interceptor-ref name="preLogin"/>
+			<result>Register/RegForm.jsp</result>
+		</action>
+		<action name="fetchJSON" class="com.action.RegisterAction" method="getJSON">
+            <interceptor-ref name="preLogin"/>
+            <result type="json"/>
+            <param name="state"></param>
+        </action>
+		<action name="checkUid" class="com.action.RegisterAction" method="checkUid">
+            <interceptor-ref name="preLogin"/>
+            <result type="json"/>
+            <param name="uid"></param>
+		</action>
+		<action name="register" method="register" class="com.action.RegisterAction">
+			<interceptor-ref name="preLogin"/>
+			<result>Other/HomePage.jsp</result>
+			<result name="error">Register/RegForm.jsp</result>
+			<result name="input">Register/RegForm.jsp</result>
+		</action>
+		
+		<!-- Account Action -->
+		<action name="updateaccView" method="getUserDetails" class="com.action.AccountAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Register/UpdateAcc.jsp</result>
+		</action>
+		<action name="updateacc" method="updateProfile" class="com.action.RegisterAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Register/UpdateAcc.jsp</result>
+		</action>
+		<action name="myacc" method="getUser" class="com.action.AccountAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="admin">Accounts/Admin.jsp</result>
+			<result name="Farmer">Accounts/Farmer.jsp</result>
+			<result name="Student">Accounts/Student.jsp</result>
+			<result name="Agricultural Officer">Accounts/AgriOfficer.jsp</result>
+			<result name="none">Other/HomePage.jsp</result>
+		</action>
+		
+		<!-- Crop Action -->
+		<action name="allcrop" method="getAllCrops" class="com.action.CropAction">
+			<result name="*">Crop/ShowAllCrops.jsp</result>
+		</action>
+		<action name="addcropView" method="prepareAddCrop" class="com.action.CropAction">
+			<result name="*">Crop/AddCrop.jsp</result>
+		</action>
+		<action name="addcrop" method="addCrop" class="com.action.CropAction">
+			<result name="input">Crop/AddCrop.jsp</result>
+			<result>Crop/AddCrop.jsp</result>
+		</action>
+		<action name="deletecrop" method="deleteCrop" class="com.action.CropAction">
+			<result name="*">Crop/ShowAllCrops.jsp</result>
+		</action>
+		<action name="updatecropView" method="getCropDetails" class="com.action.CropAction">
+			<result>Crop/UpdateCrop.jsp</result>
+			<result name="error">Crop/ShowAllCrops.jsp</result>
+		</action>
+		<action name="updatecrop" method="updateCrop" class="com.action.CropAction">
+			<result name="*">Crop/ShowAllCrops.jsp</result>
+		</action>
+		<action name="mycrop" method="getMyCrops" class="com.action.CropAction">
+			<interceptor-ref name="postLoginFarmer"/>
+			<result>Crop/ShowMyCrops.jsp</result>
+		</action>
+		<action name="deleteoldcrop" method="deleteOldCrop" class="com.action.CropAction">
+			<interceptor-ref name="postLoginFarmer"/>
+			<result name="*">Crop/ShowMyCrops.jsp</result>
+		</action>
+		<action name="addnewcrops" method="addNewCrops" class="com.action.CropAction">
+			<interceptor-ref name="postLoginFarmer"/>
+			<result name="*">Crop/ShowMyCrops.jsp</result>
+		</action>
+		<action name="updateFavFerts" method="getFavFerts" class="com.action.CropAction">
+			<result name="*">Crop/UpdateFavFerts.jsp</result>
+		</action>
+		<action name="deleteOldFavFert" method="deleteOldFavFert" class="com.action.CropAction">
+			<result name="*">Crop/UpdateFavFerts.jsp</result>
+		</action>
+		<action name="addNewFavFert" method="addNewFavFert" class="com.action.CropAction">
+			<result name="*">Crop/UpdateFavFerts.jsp</result>
+		</action>
+		<action name="updateFavSoils" method="getFavSoils" class="com.action.CropAction">
+			<result name="*">Crop/UpdateFavSoils.jsp</result>
+		</action>
+		<action name="deleteOldFavSoil" method="deleteOldFavSoil" class="com.action.CropAction">
+			<result name="*">Crop/UpdateFavSoils.jsp</result>
+		</action>
+		<action name="addNewFavSoil" method="addNewFavSoil" class="com.action.CropAction">
+			<result name="*">Crop/UpdateFavSoils.jsp</result>
+		</action>
+		
+		
+		<!-- Fertilizer Action -->
+		<action name="allfert" method="getAllFerts" class="com.action.FertAction">
+			<result>Fertilizer/ShowAllFerts.jsp</result>
+		</action>
+		<action name="addfertView">
+			<result>Fertilizer/AddFert.jsp</result>
+		</action>
+		<action name="addfert" method="addFert" class="com.action.FertAction">
+			<result name="*">Fertilizer/AddFert.jsp</result>
+		</action>
+		<action name="deletefert" method="deleteFert" class="com.action.FertAction">
+			<result name="*">Fertilizer/ShowAllFerts.jsp</result>
+		</action>
+		<action name="updatefertView" method="getFertDetails" class="com.action.FertAction">
+			<result name="*">Fertilizer/UpdateFert.jsp</result>
+		</action>
+		<action name="updatefert" method="updateFert" class="com.action.FertAction">
+			<result name="*">Fertilizer/ShowAllFerts.jsp</result>
+		</action>
+		
+		
+		<!-- Location Action -->
+		<action name="allloc" method="getAllLocs" class="com.action.LocAction">
+			<result>Location/ShowAllLoc.jsp</result>
+		</action>
+		<action name="addlocView">
+			<result>Location/AddLoc.jsp</result>
+		</action>
+		<action name="addloc" method="addLoc" class="com.action.LocAction">
+			<result name="*">Location/AddLoc.jsp</result>
+		</action>
+		<action name="deleteloc" method="deleteLoc" class="com.action.LocAction">
+			<result name="*">Location/ShowAllLoc.jsp</result>
+		</action>
+		<action name="updatelocView" method="getLocDetails" class="com.action.LocAction">
+			<result>Location/UpdateLoc.jsp</result>
+			<result name="input">Location/ShowAllLoc.jsp</result>
+			<result name="error">Location/ShowAllLoc.jsp</result>
+		</action>
+		<action name="updateloc" method="updateLoc" class="com.action.LocAction">
+			<result name="*">Location/ShowAllLoc.jsp</result>
+		</action>
+		<action name="updateFavCrops" method="getFavCrops" class="com.action.LocAction">
+			<result name="*">Location/UpdateFavCrops.jsp</result>
+		</action>
+		<action name="deleteOldFavCrop" method="deleteOldFavCrop" class="com.action.LocAction">
+			<result name="*">Location/UpdateFavCrops.jsp</result>
+		</action>
+		<action name="addNewFavCrop" method="addNewFavCrop" class="com.action.LocAction">
+			<result name="*">Location/UpdateFavCrops.jsp</result>
+		</action>
+		
+		<!-- Soil Action -->
+		<action name="addsoil" method="addSoil" class="com.action.SoilAction">
+			<result name="*">Soil/Soil.jsp</result>
+		</action>
+		<action name="deletesoil" method="deleteSoil" class="com.action.SoilAction">
+			<result name="*">Soil/Soil.jsp</result>
+		</action>
+		<action name="allsoil" method="getAllSoils" class="com.action.SoilAction">
+			<result>Soil/Soil.jsp</result>
+		</action>
+		
+		
+		<!-- Insurance Action -->
+		<action name="allins" method="getAllInss" class="com.action.InsAction">
+			<result>Insurance/ShowAllIns.jsp</result>
+		</action>
+		<action name="addinsView">
+			<result>Insurance/AddIns.jsp</result>
+		</action>
+		<action name="addins" method="addIns" class="com.action.InsAction">
+			<result name="*">Insurance/AddIns.jsp</result>
+		</action>
+		<action name="deleteins" method="deleteIns" class="com.action.InsAction">
+			<result name="*">Insurance/ShowAllIns.jsp</result>
+		</action>
+		<action name="updateinsView" method="getInsDetails" class="com.action.InsAction">
+			<result name="*">Insurance/UpdateIns.jsp</result>
+		</action>
+		<action name="updateins" method="updateIns" class="com.action.InsAction">
+			<result name="*">Insurance/ShowAllIns.jsp</result>
+		</action>
+		<action name="viewAllInss" method="getAllInss" class="com.action.InsAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Other/ShowAllIns.jsp</result>
+		</action>
+		<action name="myInss" method="prepareMyInsView" class="com.action.InsAction">
+			<interceptor-ref name="postLoginFarmer"/>
+			<result name="*">Insurance/ShowMyInss.jsp</result>
+		</action>
+		<action name="addNewIns" method="addNewIns" class="com.action.InsAction">
+			<interceptor-ref name="postLoginFarmer"/>
+			<result name="*">Insurance/ShowMyInss.jsp</result>
+		</action>
+		<action name="deleteOldIns" method="deleteOldIns" class="com.action.InsAction">
+			<interceptor-ref name="postLoginFarmer"/>
+			<result name="*">Insurance/ShowMyInss.jsp</result>
+		</action>
+		
+		
+		<!-- Loan Action -->
+		<action name="allloan" method="getAllLoans" class="com.action.LoanAction">
+			<result>Loan/ShowAllLoans.jsp</result>
+		</action>
+		<action name="addloanView">
+			<result>Loan/AddLoan.jsp</result>
+		</action>
+		<action name="addloan" method="addLoan" class="com.action.LoanAction">
+			<result name="*">Loan/AddLoan.jsp</result>
+		</action>
+		<action name="deleteloan" method="deleteLoan" class="com.action.LoanAction">
+			<result name="*">Loan/ShowAllLoans.jsp</result>
+		</action>
+		<action name="updateloanView" method="getLoanDetails" class="com.action.LoanAction">
+			<result name="*">Loan/UpdateLoan.jsp</result>
+		</action>
+		<action name="updateloan" method="updateLoan" class="com.action.LoanAction">
+			<result name="*">Loan/ShowAllLoans.jsp</result>
+		</action>
+		<action name="viewAllLoans" method="getAllLoans" class="com.action.LoanAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Other/ShowAllLoans.jsp</result>
+		</action>
+		<action name="myLoans" method="prepareMyLoanView" class="com.action.LoanAction">
+			<interceptor-ref name="postLoginFarmer"/>
+			<result name="*">Loan/ShowMyLoans.jsp</result>
+		</action>
+		<action name="addNewLoan" method="addNewLoan" class="com.action.LoanAction">
+			<interceptor-ref name="postLoginFarmer"/>
+			<result name="*">Loan/ShowMyLoans.jsp</result>
+		</action>
+		<action name="deleteOldLoan" method="deleteOldLoan" class="com.action.LoanAction">
+			<interceptor-ref name="postLoginFarmer"/>
+			<result name="*">Loan/ShowMyLoans.jsp</result>
+		</action>
+
+		<!-- Training Action -->
+		<action name="addTrainingDetView">
+			<result>Training/AddTrainingDet.jsp</result>
+		</action>
+		<action name="addTrainingDet" method="addTrainingDet" class="com.action.TrainingAction">
+			<result name="*">Training/AddTrainingDet.jsp</result>
+		</action>
+		<action name="allTrainingDet" method="getAllTrainingDet" class="com.action.TrainingAction">
+			<result name="*">Training/AllTrainingDet.jsp</result>
+		</action>
+		<action name="updateTrainingDetView" method="getTrainingDetFromTid" class="com.action.TrainingAction">
+			<result name="*">Training/UpdateTrainingDet.jsp</result>
+		</action>
+		<action name="updateTrainingDet" method="updateTrainingDet" class="com.action.TrainingAction">
+			<result name="*">Training/AllTrainingDet.jsp</result>
+		</action>
+		<action name="regForTrainingView" method="prepareTrainingReg" class="com.action.TrainingAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Training/RegForTraining.jsp</result>
+		</action>
+		<action name="regForTraining" method="registerForTraining" class="com.action.TrainingAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Training/RegForTraining.jsp</result>
+		</action>
+		<action name="deleteTraining" method="deleteTraining" class="com.action.TrainingAction">
+			<result name="*">Training/AllTrainingDet.jsp</result>
+		</action>
+		
+		<!-- Market Action -->
+		<action name="sendJSONData" method="getPriceOfCrop" class="com.action.MarketAction">
+			<result type="json"/>
+            <param name="marketName"></param>
+            <param name="cropName"></param>
+		</action>
+		<action name="updateCropPriceView" method="prepare" class="com.action.MarketAction">
+			<result name="*">Market/UpdateCropPrice.jsp</result>
+		</action>
+		<action name="updateCropPrice" method="updateCropPrice" class="com.action.MarketAction">
+			<result name="*">Market/UpdateCropPrice.jsp</result>
+		</action>
+		<action name="mandiCropPriceView" method="prepare" class="com.action.MarketAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Market/MandiCropPrices.jsp</result>
+		</action>
+		<action name="marketPricesOfCrop" method="getMarketPricesOfCrop" class="com.action.MarketAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Market/AllMarketPrices.jsp</result>
+		</action>
+		<action name="cropPricesOfMarket" method="getCropPricesOfMarket" class="com.action.MarketAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Market/AllCropPrices.jsp</result>
+		</action>
+		
+		<!-- Poll Action -->
+		<action name="addPollView">
+			<result>Poll/AddPoll.jsp</result>
+		</action>
+		<action name="addPoll" method="addPoll" class="com.action.PollAction">
+			<result name="*">Poll/AddPoll.jsp</result>
+		</action>
+		<action name="deletePoll" method="deletePoll" class="com.action.PollAction">
+			<result name="*">Poll/ShowAllPolls.jsp</result>
+		</action>
+		<action name="allPolls" method="getAllPolls" class="com.action.PollAction">
+			<result name="*">Poll/ShowAllPolls.jsp</result>
+		</action>
+		<action name="pollResult" method="getPollResult" class="com.action.PollAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Poll/PollResult.jsp</result>
+		</action>
+		<action name="voteForPollsView" method="getAllPolls" class="com.action.PollAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Poll/VoteForPolls.jsp</result>
+		</action>
+		<action name="voteForPolls" method="registerVote" class="com.action.PollAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Other/HomePage.jsp</result>
+		</action>
+		<action name="backFromResult" method="getUser" class="com.action.AccountAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="none" type="redirect">voteForPollsView.action</result>
+			<result name="Agricultural Officer" type="redirect">allPolls.action</result>
+		</action>
+		
+		<!-- Tool Action -->
+		<action name="addToolView">
+			<result name="*">Tool/AddTool.jsp</result>
+		</action>
+		<action name="addTool" method="addTool" class="com.action.ToolAction">
+			<result name="*">Tool/AddTool.jsp</result>
+		</action>
+		<action name="showAllTools" method="getAllTools" class="com.action.ToolAction">
+			<interceptor-ref name="preLogin"/>
+			<result name="*">Tool/ShowAllTools.jsp</result>
+		</action>
+		<action name="updateToolView" method="getAllTools" class="com.action.ToolAction">
+		<result name="*">Tool/UpdateTools.jsp</result>
+		</action>
+		<action name="deleteTool" method="deleteTool" class="com.action.ToolAction">
+		<result name="*">Tool/UpdateTools.jsp</result>
+		</action>
+		
+		<!-- PDF  -->
+		<action name="cropPricesOfMarketPDF" method="getCropPricesOfMarket" class="com.action.MarketAction">
+        <interceptor-ref name="preLogin"/>
+        <result name="success" type="jasper">
+            <param name="location">/jasper/CropPricesOfMarket.jasper</param>
+            <param name="dataSource">cropPrices</param>
+            <param name="format">PDF</param>
+        </result>
+        </action>
+        <action name="marketPricesOfCropPDF" method="getMarketPricesOfCrop" class="com.action.MarketAction">
+        <interceptor-ref name="preLogin"/>
+        <result name="success" type="jasper">
+            <param name="location">/jasper/MarketPricesOfCrop.jasper</param>
+            <param name="dataSource">marketPrices</param>
+            <param name="format">PDF</param>
+        </result>
+        </action>
+        <action name="joinCropLoc" method="joinCropLoc" class="com.action.ReportAction">
+        <interceptor-ref name="preLogin"/>
+        <result name="success" type="jasper">
+            <param name="location">/jasper/JoinCropLoc.jasper</param>
+            <param name="dataSource">cropLocBeanList</param>
+            <param name="format">PDF</param>
+        </result>
+        </action>
+         <action name="joinCropFert" method="joinCropFert" class="com.action.ReportAction">
+        <interceptor-ref name="preLogin"/>
+        <result name="success" type="jasper">
+            <param name="location">/jasper/JoinCropFert.jasper</param>
+            <param name="dataSource">cropFertBeanList</param>
+            <param name="format">PDF</param>
+        </result>
+        </action>
+        <action name="joinCropSoil" method="joinCropSoil" class="com.action.ReportAction">
+        <interceptor-ref name="preLogin"/>
+        <result name="success" type="jasper">
+            <param name="location">/jasper/JoinCropSoil.jasper</param>
+            <param name="dataSource">cropSoilBeanList</param>
+            <param name="format">PDF</param>
+        </result>
+        </action>
+        <action name="loanReport" method="getAllReportLoans" class="com.action.LoanAction">
+          <result name="success" type="jasper">
+            <param name="location">/jasper/LoanReport.jasper</param>
+            <param name="dataSource">allRepLoans</param>
+            <param name="format">PDF</param>
+        </result>
+        </action>
+		<action name="insReport" method="getAllReportInss" class="com.action.InsAction">
+          <result name="success" type="jasper">
+            <param name="location">/jasper/InsReport.jasper</param>
+            <param name="dataSource">allRepInss</param>
+            <param name="format">PDF</param>
+        </result>
+        </action>	
+        
+        <!-- Admin Actions  -->
+		<action name="addOffView" method="prepareOffAdd" class="com.action.RegisterAction">
+			<interceptor-ref name="postLoginAdmin"/>
+			<result>Register/AddOfficer.jsp</result>
+		</action>
+		<action name="addOff" method="addOfficer" class="com.action.RegisterAction">
+			<interceptor-ref name="postLoginAdmin"/>
+			<result>Register/AddOfficer.jsp</result>
+		</action>
+		<action name="deleteOff" method="deleteOfficer" class="com.action.RegisterAction">
+			<interceptor-ref name="postLoginAdmin"/>
+			<result>Register/AddOfficer.jsp</result>
+		</action>
+		<action name="admin">
+			<interceptor-ref name="postLoginAdmin"/>
+			<result>Accounts/Admin.jsp</result>
+		</action>
+	</package>
+</struts>

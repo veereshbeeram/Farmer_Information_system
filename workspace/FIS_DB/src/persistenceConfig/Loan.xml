@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Loan">
+	<typeAlias alias="LoanBean" type="com.beans.LoanBean"/>
+	
+	<insert id="addLoan" parameterClass="LoanBean">
+    	insert into loan(amount,term,income,interest,name) values(#amount#,#term#,#income#,#interest#,#name#) 
+  	</insert>
+  	<update id="updateLoan" parameterClass="LoanBean">
+  		update loan set amount=#amount#,term=#term#,income=#income#,interest=#interest# where name=#name#
+	</update>
+  	<delete id="deleteLoan" parameterClass="LoanBean">
+  		delete from loan where name=#name#
+  	</delete>
+  	<select id="getAllLoans" resultClass="LoanBean">
+  		select * from loan
+  	</select>
+  	<select id="getAllLoanNames" resultClass="string">
+  		select name from loan
+  	</select>
+  	<select id="getLoanDetails" parameterClass="string" resultClass="LoanBean">
+  		select * from loan where name=#value#
+  	</select>
+  	<select id="getMyLoans" parameterClass="int" resultClass="int">
+  		select Lid from farmer_loan where Fid=#value#
+  	</select>
+  	<select id="getOtherLoans" parameterClass="int" resultClass="int">
+  		select Lid from loan where Lid not in(select Lid from farmer_loan where Fid=#value#)
+  	</select>
+  	<delete id="deleteOldLoan" parameterClass="map">
+  		delete from farmer_loan where Lid=#lid# and Fid=#fid#
+  	</delete>
+  	<select id="getLidFromName" parameterClass="string" resultClass="int">
+  		select Lid from loan where name=#value# 
+  	</select>
+  	<insert id="addNewLoan" parameterClass="map">
+  		insert into farmer_loan values(#fid#,#lid#)
+	</insert>
+	<update id="addCount" parameterClass="int">
+		update loan set count=count+1 where lid=#value#
+	</update>
+</sqlMap>
+

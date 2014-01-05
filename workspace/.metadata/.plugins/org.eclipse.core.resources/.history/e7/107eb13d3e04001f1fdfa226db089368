@@ -1,0 +1,5 @@
+###Database Connectivity Properties###
+driver = com.ibm.db2.jcc.DB2Driver
+url=jdbc:mysql://localhost/farmer_db
+username=db2admin
+password=db2admin

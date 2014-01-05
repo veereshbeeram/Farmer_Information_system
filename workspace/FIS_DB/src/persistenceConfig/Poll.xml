@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Poll">
+	<typeAlias alias="PollBean" type="com.beans.PollBean"/>
+	
+	<insert id="addPoll" parameterClass="PollBean">
+		insert into poll(question,option1,option2,option3,option4) values(#question#,#option1#,#option2#,#option3#,#option4#)
+	</insert>
+	
+	<select id="getAllPolls" resultClass="PollBean">
+		select Pollid as pollID,question,option1,option2,option3,option4 from poll 
+	</select>
+	
+	<delete id="deletePoll" parameterClass="int">
+		delete from poll where Pollid=#value#
+	</delete>
+	
+	<select id="getPollResult" parameterClass="int" resultClass="PollBean">
+		select * from poll where Pollid=#value#
+	</select>
+	
+	<update id="registerVote" parameterClass="PollBean">
+		update poll set count1=count1+#count1#,count2=count2+#count2#,count3=count3+#count3#,count4=count4+#count4# where Pollid=#pollID#
+	</update>
+	
+	<select id="getOptionsOfPoll" parameterClass="int" resultClass="PollBean">
+		select option1,option2,option3,option4 from poll where Pollid=#value#
+	</select>
+</sqlMap>
+

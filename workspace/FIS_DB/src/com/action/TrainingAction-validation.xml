@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+"-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="training.name">
+		<field-validator type="requiredstring" short-circuit="true">
+			<message>Please enter training name!</message>
+		</field-validator>
+	</field>
+	<field name="training.time">
+		<field-validator type="requiredstring">
+			<message>Please enter training time!</message>
+		</field-validator>
+	</field>
+	<field name="training.duration">
+		<field-validator type="required">
+			<message>Please enter training duration!</message>
+		</field-validator>
+	</field>
+	<field name="training.maxCount">
+		<field-validator type="required">
+			<message>Please enter maximum count!</message>
+		</field-validator>
+	</field>
+	<field name="training.contact">
+		<field-validator type="required">
+			<message>Please enter contact info!</message>
+		</field-validator>
+	</field>
+	<field name="training.uname">
+		<field-validator type="requiredstring">
+			<message>Please enter name!</message>
+		</field-validator>
+	</field>
+</validators>

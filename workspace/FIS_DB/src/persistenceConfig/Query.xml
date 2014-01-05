@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Query">
+	<typeAlias alias="QueryBean" type="com.beans.QueryBean"/>
+	
+	<insert id="postQuery" parameterClass="QueryBean">
+    	 insert into query(Fid,queryText,offId) values(#fid#,#queryText#,#offId#)
+  	</insert>
+  	<select id="getOffNames" resultClass="string">
+  		select name from tgmcuser where occupation like 'Agricultural Officer'
+	</select>
+	<select id="getOffIdFromName" resultClass="int" parameterClass="string">
+		select Fid from tgmcuser where name like #value#
+	</select>
+	<select id="getQueryListFromOffId" resultClass="QueryBean" parameterClass="int">
+		select queryText,qid from query where offId=#value# or offId=0 and ans like 'none1'
+	</select>
+	<update id="addReply" parameterClass="QueryBean">
+		update query set ans=#ans# where Qid=#qid#
+	</update> 
+	<select id="getQueryListFromFid" resultClass="QueryBean" parameterClass="int">
+		select queryText,ans from query where fid=#value#
+	</select>
+</sqlMap>
+

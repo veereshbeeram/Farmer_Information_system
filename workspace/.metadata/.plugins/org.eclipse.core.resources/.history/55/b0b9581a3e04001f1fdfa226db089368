@@ -1,0 +1,5 @@
+###Database Connectivity Properties###
+driver=com.mysql.jdbc.Driver
+url=jdbc:mysql://localhost/farmer_db
+username=root
+password=admin

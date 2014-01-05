@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://geronimo.apache.org/xml/ns/j2ee/web-1.2" 
+         xmlns:naming="http://geronimo.apache.org/xml/ns/naming-1.2" 
+         xmlns:sec="http://geronimo.apache.org/xml/ns/security-1.2" 
+         xmlns:sys="http://geronimo.apache.org/xml/ns/deployment-1.2">
+         
+    <sys:environment>
+        <sys:moduleId>
+            <sys:groupId></sys:groupId>
+            <sys:artifactId>FIS_DB</sys:artifactId>
+            <sys:version>2.0</sys:version>
+            <sys:type>war</sys:type>
+        </sys:moduleId>
+
+    </sys:environment>
+
+    <context-root>/FIS_DB</context-root>
+	    <security-realm-name>geronimo-admin</security-realm-name>
+<security>
+        <default-principal>
+            <principal name="anonymous"
+class="org.apache.geronimo.security.realm.providers.GeronimoUserPrincipal"
+            />
+        </default-principal>
+        <role-mappings>
+            <role role-name="admin">
+                <principal name="administrators" designated-run-as="true"
+class="org.apache.geronimo.security.realm.providers.GeronimoGroupPrincipal"
+                />
+                <principal name="root"
+class="org.apache.geronimo.security.realm.providers.GeronimoUserPrincipal"
+                />
+            </role>
+        </role-mappings>
+    </security>
+
+   
+</web-app>

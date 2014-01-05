@@ -1,0 +1,6 @@
+###Database Connectivity Properties###
+driver = com.ibm.db2.jcc.DB2Driver
+
+url=jdbc:db2://192.168.0.178:50000/fis_db:retrieveMessagesFromServerOnGetMessage=true;
+username=deepak
+password=walden

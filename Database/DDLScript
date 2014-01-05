@@ -1,0 +1,755 @@
+-- Creating DDL for table(s)
+-- This CLP file was created using DB2LOOK Version 9.1
+-- Timestamp: Tue 19 Jan 2010 16:56:56 IST
+-- Database Name: FIS_DB         
+-- Database Manager Version: DB2/LINUX Version 9.1.0       
+-- Database Codepage: 1208
+-- Database Collating Sequence is: IDENTITY
+
+
+CONNECT TO FIS_DB;
+
+------------------------------------
+-- DDL Statements for TABLESPACES --
+------------------------------------
+
+
+CREATE LARGE TABLESPACE SYSTOOLSPACE IN DATABASE PARTITION GROUP IBMCATGROUP 
+	 PAGESIZE 4096 MANAGED BY AUTOMATIC STORAGE 
+	 AUTORESIZE YES 
+	 INITIALSIZE 32 M 
+	 MAXSIZE NONE 
+	 EXTENTSIZE 4
+	 PREFETCHSIZE AUTOMATIC
+	 BUFFERPOOL IBMDEFAULTBP
+	 OVERHEAD 7.500000
+	 TRANSFERRATE 0.060000 
+	 FILE SYSTEM CACHING  
+	 DROPPED TABLE RECOVERY ON;
+
+
+-- Mimic tablespace
+
+ALTER TABLESPACE SYSCATSPACE
+      PREFETCHSIZE AUTOMATIC
+      OVERHEAD 7.500000
+      TRANSFERRATE 0.060000;
+
+
+ALTER TABLESPACE TEMPSPACE1
+      PREFETCHSIZE AUTOMATIC
+      OVERHEAD 7.500000
+      TRANSFERRATE 0.060000;
+
+
+ALTER TABLESPACE USERSPACE1
+      PREFETCHSIZE AUTOMATIC
+      OVERHEAD 7.500000
+      TRANSFERRATE 0.060000;
+
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."CROP"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."CROP"  (
+		  "CROPID" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (  
+		    START WITH +1  
+		    INCREMENT BY +1  
+		    MINVALUE +1  
+		    MAXVALUE +2147483647  
+		    NO CYCLE  
+		    NO CACHE  
+		    NO ORDER ) , 
+		  "TYPE" VARCHAR(45) , 
+		  "NAME" VARCHAR(45) , 
+		  "SEASON" VARCHAR(45) )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."CROP"
+
+ALTER TABLE "DEEPAK   "."CROP" 
+	ADD CONSTRAINT "CC1263731788765" PRIMARY KEY
+		("CROPID");
+
+
+
+ALTER TABLE "DEEPAK   "."CROP" ALTER COLUMN "CROPID" RESTART WITH 11;
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."CROP_FERTILIZER"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."CROP_FERTILIZER"  (
+		  "CROPID" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "FEID" INTEGER NOT NULL WITH DEFAULT 0 )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."CROP_FERTILIZER"
+
+ALTER TABLE "DEEPAK   "."CROP_FERTILIZER" 
+	ADD CONSTRAINT "CC1263731918526" PRIMARY KEY
+		("CROPID",
+		 "FEID");
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."CROP_LOCATION"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."CROP_LOCATION"  (
+		  "CROPID" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "LOCID" INTEGER NOT NULL WITH DEFAULT 0 )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."CROP_LOCATION"
+
+ALTER TABLE "DEEPAK   "."CROP_LOCATION" 
+	ADD CONSTRAINT "CC1263732078032" PRIMARY KEY
+		("CROPID",
+		 "LOCID");
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."CROP_SOIL"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."CROP_SOIL"  (
+		  "CROPID" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "SID" INTEGER NOT NULL WITH DEFAULT 0 )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."CROP_SOIL"
+
+ALTER TABLE "DEEPAK   "."CROP_SOIL" 
+	ADD CONSTRAINT "CC1263732173474" PRIMARY KEY
+		("CROPID",
+		 "SID");
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."DEPENDANT"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."DEPENDANT"  (
+		  "FID" INTEGER NOT NULL , 
+		  "NAME" VARCHAR(45) NOT NULL , 
+		  "AGE" INTEGER NOT NULL , 
+		  "RELATIONSHIP" VARCHAR(45) NOT NULL )   
+		 IN "USERSPACE1" ; 
+
+
+
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."FARMER_CROP"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."FARMER_CROP"  (
+		  "FID" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "CROPID" INTEGER NOT NULL WITH DEFAULT 0 )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."FARMER_CROP"
+
+ALTER TABLE "DEEPAK   "."FARMER_CROP" 
+	ADD CONSTRAINT "CC1263732301828" PRIMARY KEY
+		("FID",
+		 "CROPID");
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."FARMER_INSURANCE"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."FARMER_INSURANCE"  (
+		  "FID" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "INSID" INTEGER NOT NULL WITH DEFAULT 0 )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."FARMER_INSURANCE"
+
+ALTER TABLE "DEEPAK   "."FARMER_INSURANCE" 
+	ADD CONSTRAINT "CC1263732359882" PRIMARY KEY
+		("FID",
+		 "INSID");
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."FARMER_LOAN"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."FARMER_LOAN"  (
+		  "FID" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "LID" INTEGER NOT NULL WITH DEFAULT 0 )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."FARMER_LOAN"
+
+ALTER TABLE "DEEPAK   "."FARMER_LOAN" 
+	ADD CONSTRAINT "CC1263732432730" PRIMARY KEY
+		("FID",
+		 "LID");
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."FERTILIZER"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."FERTILIZER"  (
+		  "FEID" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (  
+		    START WITH +1  
+		    INCREMENT BY +1  
+		    MINVALUE +1  
+		    MAXVALUE +2147483647  
+		    NO CYCLE  
+		    NO CACHE  
+		    NO ORDER ) , 
+		  "PRICE" REAL WITH DEFAULT 0 , 
+		  "DISTRIBUTOR" VARCHAR(45) , 
+		  "DESCRIPTION" VARCHAR(45) )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."FERTILIZER"
+
+ALTER TABLE "DEEPAK   "."FERTILIZER" 
+	ADD CONSTRAINT "CC1263732580455" PRIMARY KEY
+		("FEID");
+
+
+
+ALTER TABLE "DEEPAK   "."FERTILIZER" ALTER COLUMN "FEID" RESTART WITH 4;
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."INSURANCE"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."INSURANCE"  (
+		  "INSID" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (  
+		    START WITH +1  
+		    INCREMENT BY +1  
+		    MINVALUE +1  
+		    MAXVALUE +2147483647  
+		    NO CYCLE  
+		    NO CACHE  
+		    NO ORDER ) , 
+		  "TYPE" VARCHAR(45) NOT NULL , 
+		  "TERM" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "NAME" VARCHAR(45) NOT NULL , 
+		  "PREMIUM" REAL NOT NULL WITH DEFAULT 0 , 
+		  "INTEREST" REAL NOT NULL WITH DEFAULT 0 , 
+		  "COUNT" INTEGER NOT NULL WITH DEFAULT 0 )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."INSURANCE"
+
+ALTER TABLE "DEEPAK   "."INSURANCE" 
+	ADD CONSTRAINT "CC1263732853845" PRIMARY KEY
+		("INSID");
+
+
+
+ALTER TABLE "DEEPAK   "."INSURANCE" ALTER COLUMN "INSID" RESTART WITH 5;
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."LOAN"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."LOAN"  (
+		  "LID" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (  
+		    START WITH +1  
+		    INCREMENT BY +1  
+		    MINVALUE +1  
+		    MAXVALUE +2147483647  
+		    NO CYCLE  
+		    NO CACHE  
+		    NO ORDER ) , 
+		  "AMOUNT" REAL NOT NULL , 
+		  "TERM" INTEGER NOT NULL , 
+		  "INCOME" VARCHAR(45) NOT NULL , 
+		  "INTEREST" REAL NOT NULL , 
+		  "NAME" VARCHAR(45) NOT NULL , 
+		  "COUNT" INTEGER NOT NULL )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."LOAN"
+
+ALTER TABLE "DEEPAK   "."LOAN" 
+	ADD CONSTRAINT "CC1263733039545" PRIMARY KEY
+		("LID");
+
+
+
+ALTER TABLE "DEEPAK   "."LOAN" ALTER COLUMN "LID" RESTART WITH 3;
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."LOCATION"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."LOCATION"  (
+		  "LOCID" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (  
+		    START WITH +1  
+		    INCREMENT BY +1  
+		    MINVALUE +1  
+		    MAXVALUE +2147483647  
+		    NO CYCLE  
+		    NO CACHE  
+		    NO ORDER ) , 
+		  "STATE" VARCHAR(45) NOT NULL , 
+		  "DISTRICT" VARCHAR(45) NOT NULL , 
+		  "AVG_TEMP" REAL NOT NULL , 
+		  "RAINFALL" REAL NOT NULL , 
+		  "MARKETNAME" VARCHAR(45) NOT NULL )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."LOCATION"
+
+ALTER TABLE "DEEPAK   "."LOCATION" 
+	ADD CONSTRAINT "CC1263733202206" PRIMARY KEY
+		("LOCID");
+
+
+
+ALTER TABLE "DEEPAK   "."LOCATION" ALTER COLUMN "LOCID" RESTART WITH 16;
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."MARKET_CROP"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."MARKET_CROP"  (
+		  "LID" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "CROPID" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "OLDPRICE" REAL NOT NULL , 
+		  "NEWPRICE" REAL NOT NULL )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."MARKET_CROP"
+
+ALTER TABLE "DEEPAK   "."MARKET_CROP" 
+	ADD CONSTRAINT "CC1263733308608" PRIMARY KEY
+		("LID");
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."POLL"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."POLL"  (
+		  "POLLID" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (  
+		    START WITH +1  
+		    INCREMENT BY +1  
+		    MINVALUE +1  
+		    MAXVALUE +2147483647  
+		    NO CYCLE  
+		    NO CACHE  
+		    NO ORDER ) , 
+		  "QUESTION" CLOB(65536) LOGGED NOT COMPACT NOT NULL , 
+		  "OPTION1" CLOB(65536) LOGGED NOT COMPACT NOT NULL , 
+		  "OPTION2" CLOB(65536) LOGGED NOT COMPACT NOT NULL , 
+		  "OPTION3" CLOB(65536) LOGGED NOT COMPACT NOT NULL , 
+		  "OPTION4" CLOB(65536) LOGGED NOT COMPACT NOT NULL , 
+		  "COUNT1" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "COUNT2" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "COUNT3" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "COUNT4" INTEGER NOT NULL WITH DEFAULT 0 )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."POLL"
+
+ALTER TABLE "DEEPAK   "."POLL" 
+	ADD CONSTRAINT "CC1263733671700" PRIMARY KEY
+		("POLLID");
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."QUERY"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."QUERY"  (
+		  "FID" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "QID" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (  
+		    START WITH +1  
+		    INCREMENT BY +1  
+		    MINVALUE +1  
+		    MAXVALUE +2147483647  
+		    NO CYCLE  
+		    NO CACHE  
+		    NO ORDER ) , 
+		  "QUERYTEXT" CLOB(65536) LOGGED NOT COMPACT NOT NULL , 
+		  "OFFID" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "ANS" CLOB(65536) LOGGED NOT COMPACT NOT NULL )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."QUERY"
+
+ALTER TABLE "DEEPAK   "."QUERY" 
+	ADD CONSTRAINT "CC1263733825233" PRIMARY KEY
+		("QID");
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."SOIL"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."SOIL"  (
+		  "SID" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (  
+		    START WITH +1  
+		    INCREMENT BY +1  
+		    MINVALUE +1  
+		    MAXVALUE +2147483647  
+		    NO CYCLE  
+		    NO CACHE  
+		    NO ORDER ) , 
+		  "NAME" VARCHAR(45) NOT NULL )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."SOIL"
+
+ALTER TABLE "DEEPAK   "."SOIL" 
+	ADD CONSTRAINT "CC1263733936115" PRIMARY KEY
+		("SID");
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."TOOL"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."TOOL"  (
+		  "TID" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (  
+		    START WITH +1  
+		    INCREMENT BY +1  
+		    MINVALUE +1  
+		    MAXVALUE +2147483647  
+		    NO CYCLE  
+		    NO CACHE  
+		    NO ORDER ) , 
+		  "NAME" VARCHAR(45) NOT NULL , 
+		  "MANUFACTURER" VARCHAR(45) NOT NULL , 
+		  "FILENAME" VARCHAR(45) NOT NULL )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."TOOL"
+
+ALTER TABLE "DEEPAK   "."TOOL" 
+	ADD CONSTRAINT "CC1263734037924" PRIMARY KEY
+		("TID");
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."TRAINING"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."TRAINING"  (
+		  "TID" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (  
+		    START WITH +1  
+		    INCREMENT BY +1  
+		    MINVALUE +1  
+		    MAXVALUE +2147483647  
+		    NO CYCLE  
+		    NO CACHE  
+		    NO ORDER ) , 
+		  "DESCRIPTION" CLOB(65536) LOGGED NOT COMPACT NOT NULL , 
+		  "ADDRESS" CLOB(65536) LOGGED NOT COMPACT NOT NULL , 
+		  "MAXCOUNT" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "DURATION" INTEGER NOT NULL , 
+		  "NAME" CLOB(65536) LOGGED NOT COMPACT NOT NULL , 
+		  "TIME" TIME NOT NULL , 
+		  "REGCOUNT" INTEGER NOT NULL WITH DEFAULT 0 )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."TRAINING"
+
+ALTER TABLE "DEEPAK   "."TRAINING" 
+	ADD CONSTRAINT "CC1263734242779" PRIMARY KEY
+		("TID");
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."TRAINING_REG"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."TRAINING_REG"  (
+		  "TID" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "NAME" VARCHAR(45) NOT NULL , 
+		  "OCCUPATION" VARCHAR(10) NOT NULL , 
+		  "CONTACT" INTEGER NOT NULL )   
+		 IN "USERSPACE1" ; 
+
+
+
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."TRAINING_USER"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."TRAINING_USER"  (
+		  "TID" INTEGER NOT NULL WITH DEFAULT 0 , 
+		  "FID" INTEGER NOT NULL WITH DEFAULT 0 )   
+		 IN "USERSPACE1" ; 
+
+
+
+
+
+
+------------------------------------------------
+-- DDL Statements for table "DEEPAK   "."TGMCUSER"
+------------------------------------------------
+ 
+
+CREATE TABLE "DEEPAK   "."TGMCUSER"  (
+		  "FID" INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (  
+		    START WITH +1  
+		    INCREMENT BY +1  
+		    MINVALUE +1  
+		    MAXVALUE +2147483647  
+		    NO CYCLE  
+		    NO CACHE  
+		    NO ORDER ) , 
+		  "NAME" VARCHAR(45) NOT NULL , 
+		  "AGE" INTEGER NOT NULL , 
+		  "ADDRESS" VARCHAR(45) NOT NULL , 
+		  "INCOME" REAL NOT NULL , 
+		  "LOCID" INTEGER NOT NULL , 
+		  "UID" VARCHAR(45) NOT NULL , 
+		  "PWD" VARCHAR(45) NOT NULL , 
+		  "OCCUPATION" VARCHAR(45) NOT NULL )   
+		 IN "USERSPACE1" ; 
+
+
+-- DDL Statements for primary key on Table "DEEPAK   "."TGMCUSER"
+
+ALTER TABLE "DEEPAK   "."TGMCUSER" 
+	ADD CONSTRAINT "CC1263900217865" PRIMARY KEY
+		("FID");
+
+
+
+
+
+
+
+
+
+-- DDL Statements for foreign keys on Table "DEEPAK   "."CROP_FERTILIZER"
+
+ALTER TABLE "DEEPAK   "."CROP_FERTILIZER" 
+	ADD CONSTRAINT "CC1263734794194" FOREIGN KEY
+		("CROPID")
+	REFERENCES "DEEPAK   "."CROP"
+		("CROPID")
+	ON DELETE CASCADE
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+ALTER TABLE "DEEPAK   "."CROP_FERTILIZER" 
+	ADD CONSTRAINT "CC1263734841580" FOREIGN KEY
+		("FEID")
+	REFERENCES "DEEPAK   "."FERTILIZER"
+		("FEID")
+	ON DELETE CASCADE
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+-- DDL Statements for foreign keys on Table "DEEPAK   "."CROP_LOCATION"
+
+ALTER TABLE "DEEPAK   "."CROP_LOCATION" 
+	ADD CONSTRAINT "CC1263734888649" FOREIGN KEY
+		("CROPID")
+	REFERENCES "DEEPAK   "."CROP"
+		("CROPID")
+	ON DELETE CASCADE
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+ALTER TABLE "DEEPAK   "."CROP_LOCATION" 
+	ADD CONSTRAINT "CC1263734900561" FOREIGN KEY
+		("LOCID")
+	REFERENCES "DEEPAK   "."LOCATION"
+		("LOCID")
+	ON DELETE CASCADE
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+-- DDL Statements for foreign keys on Table "DEEPAK   "."CROP_SOIL"
+
+ALTER TABLE "DEEPAK   "."CROP_SOIL" 
+	ADD CONSTRAINT "CC1263734937480" FOREIGN KEY
+		("CROPID")
+	REFERENCES "DEEPAK   "."CROP"
+		("CROPID")
+	ON DELETE CASCADE
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+ALTER TABLE "DEEPAK   "."CROP_SOIL" 
+	ADD CONSTRAINT "CC1263734953987" FOREIGN KEY
+		("SID")
+	REFERENCES "DEEPAK   "."SOIL"
+		("SID")
+	ON DELETE CASCADE
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+-- DDL Statements for foreign keys on Table "DEEPAK   "."FARMER_CROP"
+
+ALTER TABLE "DEEPAK   "."FARMER_CROP" 
+	ADD CONSTRAINT "CC1263735036379" FOREIGN KEY
+		("CROPID")
+	REFERENCES "DEEPAK   "."CROP"
+		("CROPID")
+	ON DELETE CASCADE
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+-- DDL Statements for foreign keys on Table "DEEPAK   "."FARMER_INSURANCE"
+
+ALTER TABLE "DEEPAK   "."FARMER_INSURANCE" 
+	ADD CONSTRAINT "CC1263735069077" FOREIGN KEY
+		("INSID")
+	REFERENCES "DEEPAK   "."INSURANCE"
+		("INSID")
+	ON DELETE CASCADE
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+-- DDL Statements for foreign keys on Table "DEEPAK   "."FARMER_LOAN"
+
+ALTER TABLE "DEEPAK   "."FARMER_LOAN" 
+	ADD CONSTRAINT "CC1263735132524" FOREIGN KEY
+		("LID")
+	REFERENCES "DEEPAK   "."LOAN"
+		("LID")
+	ON DELETE CASCADE
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+-- DDL Statements for foreign keys on Table "DEEPAK   "."MARKET_CROP"
+
+ALTER TABLE "DEEPAK   "."MARKET_CROP" 
+	ADD CONSTRAINT "CC1263735170358" FOREIGN KEY
+		("LID")
+	REFERENCES "DEEPAK   "."LOCATION"
+		("LOCID")
+	ON DELETE CASCADE
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+ALTER TABLE "DEEPAK   "."MARKET_CROP" 
+	ADD CONSTRAINT "CC1263735241119" FOREIGN KEY
+		("CROPID")
+	REFERENCES "DEEPAK   "."CROP"
+		("CROPID")
+	ON DELETE CASCADE
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+-- DDL Statements for foreign keys on Table "DEEPAK   "."TRAINING_REG"
+
+ALTER TABLE "DEEPAK   "."TRAINING_REG" 
+	ADD CONSTRAINT "CC1263735374972" FOREIGN KEY
+		("TID")
+	REFERENCES "DEEPAK   "."TRAINING"
+		("TID")
+	ON DELETE CASCADE
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+-- DDL Statements for foreign keys on Table "DEEPAK   "."TRAINING_USER"
+
+ALTER TABLE "DEEPAK   "."TRAINING_USER" 
+	ADD CONSTRAINT "CC1263735406595" FOREIGN KEY
+		("TID")
+	REFERENCES "DEEPAK   "."TRAINING"
+		("TID")
+	ON DELETE CASCADE
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+-- DDL Statements for foreign keys on Table "DEEPAK   "."TGMCUSER"
+
+ALTER TABLE "DEEPAK   "."TGMCUSER" 
+	ADD CONSTRAINT "CC1263900222867" FOREIGN KEY
+		("LOCID")
+	REFERENCES "DEEPAK   "."LOCATION"
+		("LOCID")
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION
+	ENFORCED
+	ENABLE QUERY OPTIMIZATION;
+
+COMMIT WORK;
+
+CONNECT RESET;
+
+TERMINATE;
+
+;

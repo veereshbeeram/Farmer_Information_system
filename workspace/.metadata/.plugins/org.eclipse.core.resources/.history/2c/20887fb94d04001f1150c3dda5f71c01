@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE daoConfig
+    PUBLIC "-//ibatis.apache.org//DTD DAO Configuration 2.0//EN"
+    "http://ibatis.apache.org/dtd/dao-2.dtd">
+
+<daoConfig>
+
+  <context>
+
+    <transactionManager type="SQLMAP">
+      <property name="SqlMapConfigResource" value="persistenceConfig/SqlMapConfig.xml"/>
+    </transactionManager>
+
+    <dao interface="com.persistence.dao.LoginDao"
+      implementation="com.persistence.sqlmapdao.LoginSqlMapDao"/>
+	<dao interface="com.persistence.dao.CropDao"
+      implementation="com.persistence.sqlmapdao.CropSqlMapDao"/>
+    <dao interface="com.persistence.dao.LocDao"
+      implementation="com.persistence.sqlmapdao.LocSqlMapDao"/>
+    <dao interface="com.persistence.dao.RegisterDao"
+      implementation="com.persistence.sqlmapdao.RegisterSqlMapDao"/>  
+	<dao interface="com.persistence.dao.QueryDao"
+      implementation="com.persistence.sqlmapdao.QuerySqlMapDao"/>
+	<dao interface="com.persistence.dao.FertDao"
+      implementation="com.persistence.sqlmapdao.FertSqlMapDao"/>
+    <dao interface="com.persistence.dao.LoanDao"
+      implementation="com.persistence.sqlmapdao.LoanSqlMapDao"/>
+	<dao interface="com.persistence.dao.TrainingDao"
+      implementation="com.persistence.sqlmapdao.TrainingSqlMapDao"/>
+	<dao interface="com.persistence.dao.MarketDao"
+      implementation="com.persistence.sqlmapdao.MarketSqlMapDao"/>
+    <dao interface="com.persistence.dao.PollDao"
+      implementation="com.persistence.sqlmapdao.PollSqlMapDao"/>
+	<dao interface="com.persistence.dao.InsDao"
+      implementation="com.persistence.sqlmapdao.InsSqlMapDao"/>
+  	<dao interface="com.persistence.dao.ToolDao"
+      implementation="com.persistence.sqlmapdao.ToolSqlMapDao"/>
+      <dao interface="com.persistence.dao.SoilDao"
+      implementation="com.persistence.sqlmapdao.SoilSqlMapDao"/>
+   </context>
+
+</daoConfig>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Crop">
+	<typeAlias alias="CropBean" type="com.beans.CropBean"/>
+	<typeAlias alias="FertBean" type="com.beans.FertBean"/>
+	<typeAlias alias="SoilBean" type="com.beans.SoilBean"/>
+	<typeAlias alias="CropLocBean" type="com.beans.CropLocBean"/>
+	<typeAlias alias="CropFertBean" type="com.beans.CropFertBean"/>
+	<typeAlias alias="CropSoilBean" type="com.beans.CropSoilBean"/>
+	
+	<insert id="addCrop" parameterClass="CropBean">
+    	insert into crop(type,name,season) values(#type#,#name#,#season#) 
+  	</insert>
+  	<update id="updateCrop" parameterClass="CropBean">
+  		update crop set type=#type#,season=#season# where name=#name#
+	</update>
+  	<delete id="deleteCrop" parameterClass="CropBean">
+  		delete from crop where name=#name#
+  	</delete>
+  	<select id="getAllCrops" resultClass="CropBean">
+  		select * from crop
+  	</select>
+  	<select id="getAllCropNames" resultClass="string">
+  		select name from crop
+  	</select>
+  	<select id="getCropDetails" parameterClass="string" resultClass="CropBean">
+  		select * from crop where name=#value#
+  	</select>
+  	<select id="getMyCrops" parameterClass="int" resultClass="CropBean">
+  		select * from crop where Cropid in(select Cropid from farmer_crop where Fid=#value#)
+  	</select>
+  	<select id="getOtherCropNames" parameterClass="int" resultClass="string">
+  		select name from crop where Cropid not in(select Cropid from farmer_crop where Fid=#value#)
+  	</select>
+  	<delete id="deleteOldCrop" parameterClass="map">
+  		delete from farmer_crop where Cropid=#cid# and Fid=#fid#
+  	</delete>
+  	<select id="getCidFromName" parameterClass="string" resultClass="int">
+  		select Cropid from crop where name=#value# 
+  	</select>
+  	<insert id="addNewCrops" parameterClass="map">
+  		insert into farmer_crop values(#fid#,#cid#)
+	</insert>
+	<insert id="addFavFert" parameterClass="map">
+		insert into crop_fertilizer values(#cid#,#feid#)
+	</insert>
+	<select id="getFavFerts" parameterClass="int" resultClass="string">
+		select description from fertilizer where Feid in(select Feid from crop_fertilizer where cropid=#value#)
+	</select>
+	<select id="getUnfavFerts" parameterClass="int" resultClass="string">
+		select description from fertilizer where Feid not in(select Feid from crop_fertilizer where cropid=#value#)
+	</select>
+	<delete id="deleteOldFavFert" parameterClass="map">
+  		delete from crop_fertilizer where cropid=#cid# and feid=#feid#
+  	</delete>
+  	<select id="getFeidFromName" parameterClass="string" resultClass="int">
+  		select Feid from fertilizer where description=#value# 
+  	</select>
+  	<insert id="addFavSoil" parameterClass="map">
+		insert into crop_soil values(#cid#,#sid#)
+	</insert>
+	<select id="getFavSoils" parameterClass="int" resultClass="string">
+		select name from soil where sid in(select sid from crop_soil where cropid=#value#)
+	</select>
+	<select id="getUnfavSoils" parameterClass="int" resultClass="string">
+		select name from soil where sid not in(select sid from crop_soil where cropid=#value#)
+	</select>
+	<delete id="deleteOldFavSoil" parameterClass="map">
+  		delete from crop_soil where cropid=#cid# and sid=#sid#
+  	</delete>
+  	<select id="getSidFromName" parameterClass="string" resultClass="int">
+  		select Sid from soil where name=#value# 
+  	</select>
+  	<resultMap id="CropLocMap" class="CropLocBean">
+  		<result property="rainfall" column="rainfall"/>
+  		<result property="avgTemp" column="avg_temp"/>
+  		<result property="state" column="state"/>
+  		<result property="district" column="district"/>
+  		<result property="marketName" column="marketName"/>
+  		<result property="cropName" column="name"/>
+  		<result property="type" column="type"/>
+  		<result property="season" column="season"/>
+  	</resultMap>
+  	
+  	<select id="joinCropLoc" resultMap="CropLocMap">
+  		select * from crop a,crop_location b,location c where a.cropid=b.cropid and b.locid=c.locid order by a.name asc
+  	</select>
+  	
+  	<resultMap id="CropFertMap" class="CropFertBean">
+  		<result property="description" column="description"/>
+  		<result property="distributor" column="distributor"/>
+  		<result property="price" column="price"/>
+  		<result property="cropName" column="name"/>
+  		<result property="type" column="type"/>
+  		<result property="season" column="season"/>
+  	</resultMap>
+  	
+  	<select id="joinCropFert" resultMap="CropFertMap">
+  		select * from crop a,crop_fertilizer b,fertilizer c where a.cropid=b.cropid and b.feid=c.feid order by a.name asc
+  	</select>
+
+  	<select id="joinCropSoil" resultClass="CropSoilBean">
+  		select a.name as cropName,c.name as soilName,type,season from crop a,crop_soil b,soil c where a.cropid=b.cropid and b.sid=c.sid order by a.name asc
+  	</select>
+</sqlMap>
+
